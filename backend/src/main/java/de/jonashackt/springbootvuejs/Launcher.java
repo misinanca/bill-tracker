@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootVuejsApplication {
+public class Launcher {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootVuejsApplication.class, args);
+		SpringApplication.run(Launcher.class, args);
 	}
 }
