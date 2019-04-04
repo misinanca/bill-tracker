@@ -2,9 +2,6 @@
 
 ## Table of Contents  
 * [Project setup](#project-setup)
-* [Backend](#backend)
-* [Frontend](#frontend)
-* [Use frontend-maven-plugin to handle NPM, Node, Bower, Grunt, Gulp, Webpack and so on :)](#use-frontend-maven-plugin-to-handle-npm-node-bower-grunt-gulp-webpack-and-so-on-)
 * [First App run](first-app-run)
 * [Faster feedback with webpack-dev-server](#faster-feedback-with-webpack-dev-server)
 * [Browser developer tools extension](#browser-developer-tools-extension)
@@ -14,12 +11,6 @@
 * [Bootstrap & Vue.js](#bootstrap--vuejs)
 * [Heroku Deployment](#heroku-deployment)
 * [Using Heroku's Postgres as Database for Spring Boot backend and Vue.js frontend](#using-herokus-postgres-as-database-for-spring-boot-backend-and-vuejs-frontend)
-* [Testing](#testing)
-* [Jest](#jest)
-* [Jest Configuration](#jest-configuration)
-* [Integration in Maven build (via frontend-maven-plugin)](#integration-in-maven-build-via-frontend-maven-plugin)
-* [Run Jest tests inside IntelliJ](#run-jest-tests-inside-intellij)
-* [End-2-End (E2E) tests with Nightwatch](#end-2-end-e2e-tests-with-nightwatch)
 * [NPM Security](#npm-security)
 * [Shift from templates to plugin-based architecture in Vue Cli 3](#shift-from-templates-to-plugin-based-architecture-in-vue-cli-3)
 * [OMG! My package.json is so small - Vue CLI 3 Plugins](#omg-my-packagejson-is-so-small---vue-cli-3-plugins)
