@@ -1,6 +1,7 @@
+
 package de.jonashackt.springbootvuejs.controller;
 
-import de.jonashackt.springbootvuejs.domain.User;
+import de.jonashackt.springbootvuejs.entity.User;
 import de.jonashackt.springbootvuejs.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class BackendController {
 
+    /*
     private static final Logger LOG = LoggerFactory.getLogger(BackendController.class);
 
     public static final String HELLO_TEXT = "Hello from Spring Boot Backend!";
@@ -28,7 +30,7 @@ public class BackendController {
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody long addNewUser (@RequestParam String firstName, @RequestParam String lastName) {
-        User user = new User(firstName, lastName);
+        User user = new User
         userRepository.save(user);
 
         LOG.info(user.toString() + " successfully saved into DB");
@@ -42,4 +44,7 @@ public class BackendController {
         return userRepository.findById(id).get();
     }
 
+    */
+
 }
+
