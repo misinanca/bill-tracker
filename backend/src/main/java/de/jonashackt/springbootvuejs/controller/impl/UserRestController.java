@@ -4,6 +4,7 @@ import de.jonashackt.springbootvuejs.controller.UserRestApi;
 import de.jonashackt.springbootvuejs.entity.User;
 import de.jonashackt.springbootvuejs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,22 +20,25 @@ public class UserRestController implements UserRestApi {
         this.userService = userService;
     }
 
-
+    @PreAuthorize("hasAuthority('USER')")
     @Override
     public User findById(@PathVariable("id") Long id) {
         return userService.findById(id);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @Override
     public User update(@RequestBody User user) {
         return userService.update(user);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @Override
     public User save(@RequestBody User user) {
         return userService.save(user);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @Override
     public List<User> findAll() {
         return userService.findAll();
