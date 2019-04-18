@@ -1,4 +1,6 @@
 // vue.config.js
+var path = require('path');
+
 module.exports = {
   // proxy all webpack dev-server requests starting with /api
   // to our Spring Boot backend (localhost:8088) using http-proxy-middleware
@@ -19,7 +21,7 @@ module.exports = {
   pluginOptions: {
     "style-resources-loader": {
       preProcessor: "scss",
-      patterns: [path.resolve(__dirname, "./src/assets/css/main.scss")]
+      patterns: [path.resolve(__dirname, "./src/assets/css/global.scss")]
     }
   }
 }
