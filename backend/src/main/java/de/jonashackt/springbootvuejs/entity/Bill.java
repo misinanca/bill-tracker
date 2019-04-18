@@ -12,8 +12,8 @@ public class Bill {
     private String name;
     private Date due;
     private String status;
-    @ManyToOne
-    private Long userId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     public Long getId() {
         return id;
@@ -47,16 +47,16 @@ public class Bill {
         this.status = status;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
-        return "Bill{" + "id=" + id + ", name='" + name + '\'' + ", due=" + due + ", status='" + status + '\'' + ", userId=" + userId + '}';
+        return "Bill{" + "id=" + id + ", name='" + name + '\'' + ", due=" + due + ", status='" + status + '\'' + ", userId=" + user + '}';
     }
 }
