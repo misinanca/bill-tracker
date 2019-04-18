@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Hello</router-link> |
-      <router-link to="/callservice">Service</router-link> |
+    <header>
+      <router-link to="/">Home</router-link> |
       <router-link to="/bootstrap">Bootstrap</router-link> |
-      <router-link to="/user">User</router-link>
-    </div>
-    <router-view :hellomsg="msg"></router-view>
+      <router-link to="/login">Login</router-link>
+    </header>
+    <router-view />
   </div>
 </template>
 
@@ -14,11 +13,6 @@
 
 export default {
   name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to your Vue.js powered Spring Boot App'
-    }
-  }
 }
 </script>
 
