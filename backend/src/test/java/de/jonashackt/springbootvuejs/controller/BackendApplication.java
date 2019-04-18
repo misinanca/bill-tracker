@@ -1,21 +1,17 @@
 package de.jonashackt.springbootvuejs.controller;
 
-import de.jonashackt.springbootvuejs.SpringBootVuejsApplication;
-import de.jonashackt.springbootvuejs.domain.User;
-import io.restassured.RestAssured;
-import org.apache.http.HttpStatus;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+
+@SpringBootApplication
+public class BackendApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(BackendApplication.class, args);
+	}
+}
+
+/*
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
@@ -74,3 +70,5 @@ public class BackendControllerTest {
     }
 
 }
+
+*/
