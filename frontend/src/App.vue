@@ -1,10 +1,23 @@
 <template>
   <div id="app">
-    <header>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/bootstrap">Bootstrap</router-link> |
-      <router-link to="/login">Login</router-link>
-    </header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <router-link class="navbar-brand js-scroll-trigger" to="/">Bill tracker</router-link>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <router-link class="nav-link js-scroll-trigger" to="/">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link js-scroll-trigger" to="bootstrap">Bootstrap</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link js-scroll-trigger" to="login">Login</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <router-view />
   </div>
 </template>
@@ -17,23 +30,12 @@ export default {
 </script>
 
 <style lang="scss">
+@import './assets/css/global.scss';
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 20px;
-}
-
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-     color: #42b983;
-    }
-  }
 }
 </style>
