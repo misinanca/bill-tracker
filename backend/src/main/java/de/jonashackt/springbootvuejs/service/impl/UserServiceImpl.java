@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUserByUsername(String username) {
-        return userRepository.findOneByEmail(username);
+        return userRepository.findUserByUsername(username);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         Optional<User> optionalUser;
 
-        optionalUser = userRepository.findStudentByUsername(user.getUsername());
+        optionalUser = userRepository.findUserByUsername(user.getUsername());
 
         User user1 = optionalUser.isPresent() ? null : userRepository.save(user);
 
