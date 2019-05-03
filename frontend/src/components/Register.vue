@@ -1,12 +1,80 @@
 <template>
-  <div>
-    <h1>Register</h1>
-
-    <input type="text" v-model="user.username" placeholder="Username">
-    <input type="password" v-model="user.password" placeholder="Password">
-
-    <button @click="register()">Register</button>
-
+  <div class="page">
+    <h2 class="text-white mb-5">Register</h2>
+    <b-alert 
+      variant="danger"
+      dismissible
+      fade
+      :show="showAlert"
+      @dismissed="showAlert=false"
+    >
+      {{ errorMessage }}
+    </b-alert>
+    <form @submit.prevent="register">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input
+            v-model="user.username"
+            type="text"
+            class="form-control"
+            id="inputUsername"
+            placeholder="Username"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <input
+            v-model="user.password"
+            type="password"
+            class="form-control"
+            id="inputPass"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input
+            v-model="user.firstName"
+            type="text"
+            class="form-control"
+            id="inputFirstName"
+            placeholder="First Name"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <input
+            v-model="user.lastName"
+            type="text"
+            class="form-control"
+            id="inputLastName"
+            placeholder="Last Name"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <input
+            v-model="user.address"
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="Address"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <input
+            v-model="user.email"
+            type="email"
+            class="form-control"
+            id="inputEmail"
+            placeholder="Email address"
+          />
+        </div>
+      </div>
+      <button class="btn btn-primary mx-auto">Register</button>
+    </form>
   </div>
 </template>
 
@@ -18,29 +86,25 @@ export default {
   name: 'register',
   data () {
     return {
-      response: [],
-      errors: [],
-      user: {
-        username: '',
-        password: '',
-      },
+      user: null,
+      errorMessage: '',
+      showAlert: false,
     };
   },
   methods: {
     // Fetches posts when the component is created.
     register () {
-      var params = new URLSearchParams();
-      params.append('username', this.user.username);
-      params.append('password', this.user.password);
-
-      AXIOS.post(`/register`, params)
+      AXIOS.post(`/user/register`, this.user)
         .then(response => {
-          // JSON responses are automatically parsed.
+          debugger;
+
+          // make store to store user data and redirect to a welcome page
           this.response = response.data;
           console.log(response.data);
         })
         .catch(e => {
-          this.errors.push(e);
+          this.showAlert = true;
+          this.errorMessage = 'Something went wrong. Please try again.';
         })
     },
   }

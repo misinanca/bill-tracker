@@ -18,7 +18,11 @@
         </div>
       </div>
     </nav>
-    <router-view />
+    <div class="masthead">
+      <div class="container d-flex h-100 align-items-center justify-content-center">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 

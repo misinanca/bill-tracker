@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public interface UserRestApi {
 
     @GetMapping("/{id}")
@@ -17,8 +17,8 @@ public interface UserRestApi {
     @PostMapping("/update")
     User update(final User user);
 
-    @PostMapping("/save")
-    User save(User user);
+    @PostMapping("/register")
+    User register(User user);
 
     @GetMapping("/findAll")
     List<User> findAll();
