@@ -34,8 +34,7 @@ public class UserRestController implements UserRestApi {
         return userService.update(user);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
-    @RequestMapping(value = "/users/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     @Override
     public @ResponseBody User register(@RequestBody User user) {
         return userService.save(user);

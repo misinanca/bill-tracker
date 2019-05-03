@@ -86,7 +86,7 @@ export default {
   name: 'register',
   data () {
     return {
-      user: null,
+      user: {},
       errorMessage: '',
       showAlert: false,
     };
@@ -94,7 +94,7 @@ export default {
   methods: {
     // Fetches posts when the component is created.
     register () {
-      AXIOS.post(`/user/register`, this.user)
+      AXIOS.post(`/users/register`, this.user)
         .then(response => {
           debugger;
 
