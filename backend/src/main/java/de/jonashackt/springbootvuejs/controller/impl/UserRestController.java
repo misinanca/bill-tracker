@@ -6,7 +6,9 @@ import de.jonashackt.springbootvuejs.entity.Role;
 import de.jonashackt.springbootvuejs.entity.User;
 import de.jonashackt.springbootvuejs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,18 +17,20 @@ import java.util.List;
 public class UserRestController implements UserRestApi {
 
     private final UserService userService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     public UserRestController(final UserService userService) {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAuthority('USER')")
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    @Override
-    public User findById(@PathVariable("id") Long id) {
-        return userService.findById(id);
-    }
+//    @PreAuthorize("hasAuthority('USER')")
+//    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+//    @Override
+//    public User findById(@PathVariable("id") Long id) {
+//        return userService.findById(id);
+//    }
 
     @PreAuthorize("hasAuthority('USER')")
     @RequestMapping(value = "/users/update", method = RequestMethod.POST)
@@ -44,7 +48,8 @@ public class UserRestController implements UserRestApi {
         user.setEmail(userDTO.email);
         user.setFirstName(userDTO.firstName);
         user.setLastName(userDTO.lastName);
-        user.setPasswordHash(userDTO.password);
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        user.setPasswordHash(encryptedPassword);
         user.setRole(Role.USER);
 
         return userService.save(user);
@@ -55,5 +60,10 @@ public class UserRestController implements UserRestApi {
     @Override
     public List<User> findAll() {
         return userService.findAll();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

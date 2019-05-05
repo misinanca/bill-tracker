@@ -29,12 +29,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        User user = userRepository.findById(id).get();
+    public Optional<User>  findById(Long id) {
 
-        return ofNullable(user)
-                .orElse(null);
+        return userRepository.findById(id);
     }
+
+    @Override
+    public User findOne(String username) {
+        return userRepository.getUserByUsername(username);
+    }
+
 
     @Override
     public User save(User user) {

@@ -12,8 +12,8 @@ import java.util.List;
 @RequestMapping("/api")
 public interface UserRestApi {
 
-    @GetMapping("/{id}")
-    User findById(@PathVariable Long id);
+//    @GetMapping("/{id}")
+//    User findById(@PathVariable Long id);
 
     @PostMapping("/update")
     User update(final User user);
