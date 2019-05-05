@@ -112,7 +112,7 @@ export default {
   methods: {
     // Fetches posts when the component is created.
     register () {
-      AXIOS.post(`/users/register`, this.user)
+      AXIOS.post(`/public/register`, this.user)
         .then(response => {
           debugger;
 

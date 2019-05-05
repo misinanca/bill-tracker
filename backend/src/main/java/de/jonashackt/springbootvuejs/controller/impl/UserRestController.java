@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
 public class UserRestController implements UserRestApi {
 
     private final UserService userService;
@@ -34,7 +33,7 @@ public class UserRestController implements UserRestApi {
         return userService.update(user);
     }
 
-    @RequestMapping(value = "/users/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/public/register", method = RequestMethod.POST)
     @Override
     public @ResponseBody User register(@RequestBody User user) {
         return userService.save(user);
