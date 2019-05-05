@@ -8,7 +8,7 @@
       :show="showAlert"
       @dismissed="showAlert=false"
     >
-      {{ errorMessage }}
+      {{ error }}
     </b-alert>
     <form @submit.prevent="register">
       <div class="form-row">
@@ -97,34 +97,36 @@
 </template>
 
 <script>
-// import axios from 'axios'
-import {AXIOS} from './http-common'
+import { AXIOS } from '@/http-common';
 
 export default {
   name: 'register',
   data () {
     return {
       user: {},
-      errorMessage: '',
       showAlert: false,
     };
   },
+  computed: {
+    error () {
+      return this.$store.getters.getError;
+    },
+  },
   methods: {
-    // Fetches posts when the component is created.
-    register () {
-      AXIOS.post(`/public/register`, this.user)
-        .then(response => {
-          debugger;
+    register() {
+      AXIOS.post(`/public/user/register`, this.user)
+        .then((response) => {
+          this.$store.commit('setError', null);
+          this.$store.commit('setUser', response.data);
+          this.showAlert = false;
 
-          // make store to store user data and redirect to a welcome page
-          this.response = response.data;
-          console.log(response.data);
+          this.$router.push({ name: 'BillsList' });
         })
-        .catch(e => {
+        .catch((error) => {
           this.showAlert = true;
-          this.errorMessage = 'Something went wrong. Please try again.';
+          this.$store.commit('setError', 'Something went wrong. Please try again.');
         })
     },
-  }
+  },
 }
 </script>

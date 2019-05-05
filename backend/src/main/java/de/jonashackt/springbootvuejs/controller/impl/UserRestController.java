@@ -1,6 +1,8 @@
 package de.jonashackt.springbootvuejs.controller.impl;
 
 import de.jonashackt.springbootvuejs.controller.UserRestApi;
+import de.jonashackt.springbootvuejs.controller.dtos.UserDTO;
+import de.jonashackt.springbootvuejs.entity.Role;
 import de.jonashackt.springbootvuejs.entity.User;
 import de.jonashackt.springbootvuejs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +35,18 @@ public class UserRestController implements UserRestApi {
         return userService.update(user);
     }
 
-    @RequestMapping(value = "/public/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/public/user/register", method = RequestMethod.POST)
     @Override
-    public @ResponseBody User register(@RequestBody User user) {
+    public @ResponseBody User register(@RequestBody UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.username);
+        user.setAddress(userDTO.address);
+        user.setEmail(userDTO.email);
+        user.setFirstName(userDTO.firstName);
+        user.setLastName(userDTO.lastName);
+        user.setPasswordHash(userDTO.password);
+        user.setRole(Role.USER);
+
         return userService.save(user);
     }
 
