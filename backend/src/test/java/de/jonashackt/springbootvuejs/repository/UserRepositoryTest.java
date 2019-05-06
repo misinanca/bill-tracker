@@ -1,7 +1,6 @@
-package de.jonashackt.springbootvuejs.repository;
-
+/*package de.jonashackt.springbootvuejs.repository
 public class UserRepositoryTest {
-/*
+
     @Autowired
     private TestEntityManager entityManager;
 
@@ -35,4 +34,3 @@ public class UserRepositoryTest {
         assertThat(usersWithFirstNameJonas, contains(jonasHecht));
     }
 */
-}

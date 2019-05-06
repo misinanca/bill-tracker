@@ -4,10 +4,15 @@ package de.jonashackt.springbootvuejs.service;
 import de.jonashackt.springbootvuejs.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    User findById(Long id);
+    Optional<User> getUserByUsername(String username);
+
+    User findOne(String username);
+
+    Optional<User> findById(Long id);
 
     User save(User user);
 

@@ -1,14 +1,10 @@
 <template>
-  <div class="masthead">
-    <div class="container d-flex h-100 align-items-center">
-      <div class="mx-auto text-center">
-        <h1 class="mx-auto my-0 text-uppercase">Bill tracker</h1>
-        <h2 class="text-white-50 mx-auto mt-2 mb-5">
-          A free way of managing all your money. Our Bill Tracking tool lets you enter all your monthly bills,
-          what amount you owe, when the bill is due and see spending graphics.</h2>
-        <router-link to="register" class="btn btn-primary js-scroll-trigger">Get Started</router-link>
-      </div>
-    </div>
+  <div class="mx-auto text-center">
+    <h1 class="h1 mx-auto my-0 text-uppercase">Bill tracker</h1>
+    <h2 class="h2 text-white-50 mx-auto mt-2 mb-5">
+      A free way of managing all your money. Our Bill Tracking tool lets you enter all your monthly bills,
+      what amount you owe, when the bill is due and see spending graphics.</h2>
+    <router-link to="register" class="btn btn-primary js-scroll-trigger">Get Started</router-link>
   </div>
 </template>
 

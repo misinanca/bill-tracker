@@ -1,48 +1,143 @@
 <template>
-  <div>
-    <h1>Register</h1>
-
-    <input type="text" v-model="user.username" placeholder="Username">
-    <input type="password" v-model="user.password" placeholder="Password">
-
-    <button @click="register()">Register</button>
-
+  <div class="page">
+    <h2 class="text-white mb-5">Register</h2>
+    <b-alert 
+      variant="danger"
+      dismissible
+      fade
+      :show="showAlert"
+      @dismissed="showAlert=false"
+    >
+      {{ error }}
+    </b-alert>
+    <form @submit.prevent="register">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input
+            v-validate="'required|min:6'"
+            v-model="user.username"
+            type="text"
+            class="form-control"
+            id="inputUsername"
+            name="username"
+            placeholder="Username"
+          />
+          <span class="error-message">{{ errors.first('username') }}</span>
+        </div>
+        <div class="form-group col-md-6">
+          <input
+            v-validate="'required|min:6'"          
+            v-model="user.password"
+            type="password"
+            class="form-control"
+            id="inputPass"
+            name="password"
+            placeholder="Password"
+          />
+          <span class="error-message">{{ errors.first('password') }}</span>          
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input
+            v-validate="'required|alpha'"
+            v-model="user.firstName"
+            type="text"
+            class="form-control"
+            id="inputFirstName"
+            name="firstName"
+            placeholder="First Name"
+          />
+          <span class="error-message">{{ errors.first('firstName') }}</span>
+        </div>
+        <div class="form-group col-md-6">
+          <input
+            v-validate="'required|alpha'"
+            v-model="user.lastName"
+            type="text"
+            class="form-control"
+            id="inputLastName"
+            name="lastName"
+            placeholder="Last Name"
+          />
+          <span class="error-message">{{ errors.first('lastName') }}</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <input
+            v-validate="'required'"
+            v-model="user.address"
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            name="address"
+            placeholder="Address"
+          />
+          <span class="error-message">{{ errors.first('address') }}</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <input
+            v-validate="'required|email'"
+            v-model="user.email"
+            type="email"
+            class="form-control"
+            id="inputEmail"
+            name="email"
+            placeholder="Email address"
+          />
+          <span class="error-message">{{ errors.first('email') }}</span>
+        </div>
+      </div>
+      <button class="btn btn-primary mx-auto">Register</button>
+    </form>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
-import {AXIOS} from './http-common'
+import { AXIOS } from '@/http-common';
 
 export default {
   name: 'register',
   data () {
     return {
-      response: [],
-      errors: [],
-      user: {
-        username: '',
-        password: '',
-      },
+      user: {},
+      showAlert: false,
     };
   },
+  computed: {
+    error () {
+      return this.$store.getters.getError;
+    },
+  },
   methods: {
-    // Fetches posts when the component is created.
-    register () {
-      var params = new URLSearchParams();
-      params.append('username', this.user.username);
-      params.append('password', this.user.password);
+    register() {
+      this.$validator.validate()
+        .then((valid) => {
+          if (valid) {
+            return this.callApi();
+          }
+        }).catch(() => {
+          this.showAlert = true;
+          this.$store.commit('setError', 'Something went wrong. Please try again.');
+        }); 
+    },
+    callApi() {
+      AXIOS.post(`/public/register`, this.user)
+        .then((response) => {
+          this.$store.commit('setError', null);
+          this.$store.commit('setUser', response.data);
+          this.showAlert = false;
 
-      AXIOS.post(`/register`, params)
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.response = response.data;
-          console.log(response.data);
+          this.$router.push({ name: 'Login' });
         })
-        .catch(e => {
-          this.errors.push(e);
+        .catch((error) => {
+          this.showAlert = true;
+          this.$store.commit('setError', 'Something went wrong. Please try again.');
         })
     },
-  }
+  },
 }
 </script>
