@@ -1,6 +1,6 @@
-package de.jonashackt.springbootvuejs.entity;
+package de.jonashackt.springbootvuejs.controller.dtos;
 
-public class LoginUser {
+public class LoginUserDTO {
 
     private String username;
     private String password;

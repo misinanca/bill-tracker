@@ -114,13 +114,24 @@ export default {
   },
   methods: {
     register() {
-      AXIOS.post(`/public/user/register`, this.user)
+      this.$validator.validate()
+        .then((valid) => {
+          if (valid) {
+            return this.callApi();
+          }
+        }).catch(() => {
+          this.showAlert = true;
+          this.$store.commit('setError', 'Something went wrong. Please try again.');
+        }); 
+    },
+    callApi() {
+      AXIOS.post(`/public/register`, this.user)
         .then((response) => {
           this.$store.commit('setError', null);
           this.$store.commit('setUser', response.data);
           this.showAlert = false;
 
-          this.$router.push({ name: 'BillsList' });
+          this.$router.push({ name: 'Login' });
         })
         .catch((error) => {
           this.showAlert = true;
