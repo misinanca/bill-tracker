@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     error () {
-      return this.$store.getters.getError;
+      return this.$store.getters.error;
     },
   },
   methods: {
@@ -128,7 +128,6 @@ export default {
       AXIOS.post(`/public/register`, this.user)
         .then((response) => {
           this.$store.commit('setError', null);
-          this.$store.commit('setUser', response.data);
           this.showAlert = false;
 
           this.$router.push({ name: 'Login' });

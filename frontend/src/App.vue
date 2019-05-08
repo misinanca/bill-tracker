@@ -6,13 +6,13 @@
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <router-link class="nav-link js-scroll-trigger" to="/">Home</router-link>
+              <router-link class="nav-link js-scroll-trigger mr-4" to="/">Home</router-link>
             </li>
-            <li class="nav-item">
-              <router-link class="nav-link js-scroll-trigger" to="bootstrap">Bootstrap</router-link>
-            </li>
-            <li class="nav-item">
+            <li v-if="!isAuthenticated" class="nav-item">
               <router-link class="nav-link js-scroll-trigger" to="login">Login</router-link>
+            </li>
+            <li v-else class="nav-item">
+              <router-link disabled class="nav-link js-scroll-trigger" to="/">Welcome</router-link>
             </li>
           </ul>
         </div>
@@ -27,9 +27,15 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 
 export default {
   name: 'app',
+  computed: {
+    isAuthenticated() {
+      return Cookies.get('AUTH') !== undefined;
+    },
+  },
 }
 </script>
 
