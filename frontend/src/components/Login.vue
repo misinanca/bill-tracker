@@ -44,7 +44,7 @@
 
 <script>
 import Cookies from "js-cookie";
-import { AXIOS } from '../http-common';
+import AXIOS from '@/http-common';
 
 export default {
   name: 'login',
@@ -77,6 +77,7 @@ export default {
     callApi(){
       AXIOS.post(`/auth`,this.user)
         .then((response) => {
+          this.$store.commit('setIsAuth', true);
           this.$store.commit('setError', null);
           this.$store.commit('setUser', { id: response.data.id, username: response.data.username});
           Cookies.set('AUTH', response.data.accessToken);

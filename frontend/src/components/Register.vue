@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import { AXIOS } from '@/http-common';
+import AXIOS from '@/http-common';
 
 export default {
   name: 'register',

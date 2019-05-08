@@ -5,14 +5,17 @@
         <router-link class="navbar-brand js-scroll-trigger" to="/">Bill tracker</router-link>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
+            <li v-if="isAuthenticated" class="nav-item mr-4">
+              <span class="nav-link">Welcome, {{ user.username }}</span>
+            </li>
             <li class="nav-item">
-              <router-link class="nav-link js-scroll-trigger mr-4" to="/">Home</router-link>
+              <router-link class="nav-link js-scroll-trigger" to="/">Home</router-link>
             </li>
             <li v-if="!isAuthenticated" class="nav-item">
               <router-link class="nav-link js-scroll-trigger" to="login">Login</router-link>
             </li>
-            <li v-else class="nav-item">
-              <router-link disabled class="nav-link js-scroll-trigger" to="/">Welcome</router-link>
+            <li v-if="isAuthenticated" class="nav-item">              
+              <router-link @click.native="logout()" class="nav-link js-scroll-trigger" to="/">Logout</router-link>
             </li>
           </ul>
         </div>
@@ -28,12 +31,32 @@
 
 <script>
 import Cookies from 'js-cookie';
+import AXIOS from './http-common';
 
 export default {
   name: 'app',
+  mounted() {
+    if (Cookies.get('AUTH') !== undefined) {
+      this.$store.commit('setIsAuth', true);
+    }
+  },
   computed: {
     isAuthenticated() {
-      return Cookies.get('AUTH') !== undefined;
+      return this.$store.getters.isAuth;
+    },
+    user() {
+      return this.$store.getters.user;
+    },
+  },
+  methods: {
+    logout() {
+      AXIOS.post(`/logout`)
+        .then((response) => {
+          this.$store.commit('setIsAuth', false);
+          Cookies.remove('AUTH');
+          this.$router.push("/");
+        })
+        .catch((error) => console.log(error));
     },
   },
 }

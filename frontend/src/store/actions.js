@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import router from '@/router';
-import { AXIOS } from '../http-common'
+import AXIOS from '../http-common'
 
 export const actions = {
     userSignIn({ commit }, payload) {

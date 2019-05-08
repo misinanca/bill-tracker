@@ -1,4 +1,7 @@
 export const getters = {
+    isAuth(state) {
+      return state.isAuth;
+    },
     user(state) {
       return state.user;
     },

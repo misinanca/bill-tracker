@@ -1,4 +1,7 @@
 export const mutations = {
+  setIsAuth(state, payload) {
+    state.isAuth = payload;
+  },
   setUser(state, payload) {
     state.user = payload;
   },
