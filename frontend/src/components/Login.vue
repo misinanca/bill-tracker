@@ -43,14 +43,13 @@
 </template>
 
 <script>
-// import axios from 'axios'
-import {AXIOS} from '../http-common';
+import Cookies from "js-cookie";
+import AXIOS from '@/http-common';
 
 export default {
   name: 'login',
   data () {
     return {
-      response: [],
       user: {
         username: '',
         password: '',
@@ -60,15 +59,11 @@ export default {
   },
   computed: {
       error () {
-        return this.$store.getters.getError;
+        return this.$store.getters.error;
     },
   },
   methods: {
-    // Fetches posts when the component is created.
     login () {
-      // var params = new URLSearchParams();
-      // params.append('username', this.user.username);
-      // params.append('password', this.user.password);
       this.$validator.validate()
         .then((valid) => {
           if (valid) {
@@ -81,16 +76,17 @@ export default {
     },
     callApi(){
       AXIOS.post(`/auth`,this.user)
-        .then(response => {
+        .then((response) => {
+          this.$store.commit('setIsAuth', true);
           this.$store.commit('setError', null);
-          this.$store.commit('setUser', {id:response.data.id , username: response.data.username});
-          this.$store.commit('setAuth', response.data.accessToken);
+          this.$store.commit('setUser', { id: response.data.id, username: response.data.username});
+          Cookies.set('AUTH', response.data.accessToken);
           this.showAlert = false;
 
-          this.$router.push({ name: 'Bootstrap' });
+          this.$router.push({ name: 'BillsList' });
           console.log(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           this.showAlert = true;
           this.$store.commit('setError', 'Something went wrong. Please try again.');
         })
