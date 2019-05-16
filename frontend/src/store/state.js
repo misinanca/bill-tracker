@@ -1,7 +1,5 @@
-import Cookies from 'js-cookie';
-
 export const state = {
-    isAuthenticated: Cookies.get('AUTH'),
+    isAuth: false,
     user: null,
     error: null,
     loading: false,

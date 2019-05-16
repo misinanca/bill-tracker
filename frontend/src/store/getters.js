@@ -1,14 +1,14 @@
 export const getters = {
-    isAuthenticated (state) {
-      return state.isAuthenticated === 'true';
+    isAuth(state) {
+      return state.isAuth;
     },
-    getUser (state) {
+    user(state) {
       return state.user;
     },
-    getError (state) {
+    error(state) {
       return state.error;
     },
-    getLoading (state) {
+    loading(state) {
       return state.loading;
     },
 }

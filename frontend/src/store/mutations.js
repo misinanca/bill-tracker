@@ -1,14 +1,9 @@
-import Cookies from "js-cookie";
-
 export const mutations = {
+  setIsAuth(state, payload) {
+    state.isAuth = payload;
+  },
   setUser(state, payload) {
     state.user = payload;
-  },
-  setAuth(payload) {
-    Cookies.set('AUTH', payload);
-  },
-  clearAuth() {
-    Cookies.remove('AUTH');
   },
   setError(state, payload) {
     state.error = payload;
