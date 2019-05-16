@@ -6,6 +6,7 @@ import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
 import BillsList from '@/components/bills/BillsList';
+import SaveBill from '@/components/bills/SaveBill';
 
 Vue.use(Router);
 
@@ -35,6 +36,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
+    {
+      path: '/save',
+      name: 'SaveBill',
+      component: SaveBill,
+      meta: { 
+        requiresAuth: true
+      }
+    }
   ]
 });
 
