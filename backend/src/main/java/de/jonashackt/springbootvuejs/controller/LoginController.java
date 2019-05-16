@@ -48,6 +48,16 @@ public class LoginController {
     }
 
     @CrossOrigin
+    @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
+    @ModelAttribute("currentUser")
+    public ResponseEntity<?> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
+        return (userPrincipal == null) ? (ResponseEntity<?>) ResponseEntity.badRequest() : ResponseEntity.ok(new ApiResponse(userPrincipal.getUsername(), userPrincipal.getId()));
+    }
+
+
+    @CrossOrigin
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity<?> logout() throws AuthenticationException {
         Authentication authentication = new Authentication() {
