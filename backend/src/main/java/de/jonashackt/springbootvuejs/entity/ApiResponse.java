@@ -1,29 +1,29 @@
 package de.jonashackt.springbootvuejs.entity;
 
 
-public class ApiResponse<T> {
+public class ApiResponse {
 
-    private Boolean success;
-    private String message;
+    private Long id;
+    private String name;
 
-    public ApiResponse(Boolean success, String message) {
-        this.success = success;
-        this.message = message;
+    public ApiResponse(String name, Long id) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Boolean getSuccess() {
-        return success;
+    public Long getId() {
+        return id;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setName(String name) {
+        this.name = name;
     }
 }
