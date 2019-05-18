@@ -11,4 +11,7 @@ export const mutations = {
   setLoading(state, payload) {
     state.loading = payload;
   },
+  setBillsList(state, payload) {
+    state.billsList = payload;
+  },
 }

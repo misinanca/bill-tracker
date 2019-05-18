@@ -3,6 +3,9 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         <router-link class="navbar-brand js-scroll-trigger" to="/">Bill tracker</router-link>
+        <div v-if="isAuthenticated">
+          <router-link class="nav-link js-scroll-trigger" to="/bills">List</router-link>
+        </div>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li v-if="isAuthenticated" class="nav-item mr-4">
@@ -38,6 +41,7 @@ export default {
   mounted() {
     if (Cookies.get('AUTH') !== undefined) {
       this.$store.commit('setIsAuth', true);
+      // call backend to get current user
     }
   },
   computed: {
