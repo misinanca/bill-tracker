@@ -37,7 +37,15 @@ export default {
   name: 'app',
   mounted() {
     if (Cookies.get('AUTH') !== undefined) {
-      this.$store.commit('setIsAuth', true);
+      AXIOS.get('/getCurrentUser')
+        .then((response) =>{
+          this.$store.commit('setIsAuth', true);
+          this.$store.commit('setUser', { id: response.data.id, username: response.data.name });
+        })
+        .catch((error) => {
+          this.$store.commit('setIsAuth', false);
+          Cookies.remove('AUTH');
+        });
     }
   },
   computed: {
