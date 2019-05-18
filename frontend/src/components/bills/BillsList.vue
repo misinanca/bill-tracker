@@ -34,7 +34,8 @@ import AXIOS from '@/http-common';
 export default {
     mounted() {
         this.toggleBusy();
-        AXIOS.get('/list')
+        // TODO: replace api url with bills list 
+        AXIOS.get('/getFilteredBills?status=true')
             .then((response) => {
                 this.toggleBusy();
                 this.$store.commit('setBillsList', response.data);
@@ -56,7 +57,7 @@ export default {
                     label: 'Name',
                     sortable: true,
                 },
-                dueDate: {
+                due: {
                     label: 'Due date',
                     sortable: true,
                 },

@@ -12,6 +12,16 @@ export const mutations = {
     state.loading = payload;
   },
   setBillsList(state, payload) {
-    state.billsList = payload;
+    const bills = payload.map((el) => {
+      const status = el.status ? 'Paid' : 'Unpaid';
+
+      return {
+        id: el.id,
+        name: el.name,
+        due: el.due,
+        status: status,
+      };
+    })
+    state.billsList = bills;
   },
 }
