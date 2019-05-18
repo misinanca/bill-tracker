@@ -2,9 +2,7 @@ package de.jonashackt.springbootvuejs.controller;
 
 import de.jonashackt.springbootvuejs.controller.dtos.BillDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api")
 public interface BillRestApi {
@@ -17,5 +15,8 @@ public interface BillRestApi {
 
     @PostMapping("/saveBill")
     ResponseEntity<Boolean> save(BillDTO billDTO);
+
+    @GetMapping("/getFilteredBills")
+    ResponseEntity<?> filterBills(@RequestParam(value="status") Boolean status);
 
 }

@@ -11,7 +11,7 @@ public class Bill {
     private Long id;
     private String name;
     private Date due;
-    private boolean status;
+    private Boolean status;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
@@ -39,7 +39,7 @@ public class Bill {
         this.due = due;
     }
 
-    public boolean getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
