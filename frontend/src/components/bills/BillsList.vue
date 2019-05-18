@@ -5,7 +5,20 @@
                 <h1 class="text-white mb-5">List of all bills</h1>
             </div>
             <div class="mt-1">
-                <button class="btn btn-primary">Add new bill</button>
+                <select
+                    v-model="selected"
+                    class="form-control mb-2"
+                    @change="getBills()"
+                >
+                    <option 
+                        v-for="(option, index) in filterOptions"
+                        :key="`option-${index}`"
+                        :value="option.value"
+                    >
+                        {{ option.text }}
+                    </option>
+                </select>
+                <div><button class="btn btn-primary mb-2">Add new bill</button></div>
             </div>
         </div>
         <b-alert 
@@ -33,24 +46,25 @@ import AXIOS from '@/http-common';
 
 export default {
     mounted() {
-        this.toggleBusy();
-        // TODO: replace api url with bills list 
-        AXIOS.get('/getFilteredBills?status=true')
-            .then((response) => {
-                this.toggleBusy();
-                this.$store.commit('setBillsList', response.data);
-                this.$store.commit('setError', null);
-                this.showAlert = false;
-
-                console.log(response.data);
-            })
-            .catch((error) => {
-                this.showAlert = true;
-                this.$store.commit('setError', 'Something went wrong. Please try again.');
-            });
+        this.getBills();
     },
     data() {
         return {
+            selected: 'all',
+            filterOptions: [
+                {
+                    value: 'all',
+                    text: 'All bills',
+                },
+                {
+                    value: 'paid',
+                    text: 'Paid bills',
+                },
+                {
+                    value: 'unpaid',
+                    text: 'Unpaid bills',
+                },
+            ],
             isBusy: false,
             tableFields: {
                 name: {
@@ -88,6 +102,45 @@ export default {
     methods: {
         toggleBusy(){
             this.isBusy = !this.isBusy;
+        },
+        getBills() {
+            this.toggleBusy();
+
+            if (this.selected === 'all') {
+                // TODO: replace api url with all bills list
+                AXIOS.get('/getFilteredBills?status=true')
+                    .then((response) => {
+                        this.toggleBusy();
+                        this.$store.commit('setBillsList', response.data);
+                        this.$store.commit('setError', null);
+                        this.showAlert = false;
+
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        this.showAlert = true;
+                        this.$store.commit('setError', 'Something went wrong. Please try again.');
+                    });
+            }
+            else {
+                const status = this.selected === 'paid' 
+                    ? 'true'
+                    : 'false';
+
+                AXIOS.get(`/getFilteredBills?status=${status}`)
+                    .then((response) => {
+                        this.toggleBusy();
+                        this.$store.commit('setBillsList', response.data);
+                        this.$store.commit('setError', null);
+                        this.showAlert = false;
+
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        this.showAlert = true;
+                        this.$store.commit('setError', 'Something went wrong. Please try again.');
+                    });
+            }
         },
     },
 }
