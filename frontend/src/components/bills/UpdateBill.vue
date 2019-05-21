@@ -58,6 +58,7 @@
 import AXIOS from '@/http-common';
 export default{
     name: 'update',
+    props: ['idBill'],
     data () {
         return {
         bill: {

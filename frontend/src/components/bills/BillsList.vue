@@ -32,10 +32,10 @@
         </b-alert>
         <div class="container">
             <b-table hover striped dark :fields="tableFields" :items="items" :busy="isBusy" class="list-table">
-                <template slot="commands" slot-scope="row">
-                    <v-icon class="mr-2" name="edit" scale="1.5" />
-                    <v-icon class="mr-2" name="trash" scale="1.5" />
-                    <v-icon name="check" scale="1.5" label="Bill paid" />
+                <template slot="commands" slot-scope="data">
+                    <v-btn v-on:click="goUpdateBill(data.item.id)"><v-icon class="mr-2" name="edit" scale="1.5" /></v-btn>
+                    <v-icon @click="deleteBill(data.item.id)" class="mr-2" name="trash" scale="1.5" />
+                    <v-icon v-if="!data.item.status" name="check" scale="1.5" label="Bill paid" />
                 </template>
                 <div slot="table-busy" class="text-center text-danger my-2">
                     <b-spinner class="align-middle mr-2"></b-spinner>
@@ -153,6 +153,12 @@ export default {
         },
         goAddNewBill(){
             this.$router.push({ name: 'SaveBill' })
+        },
+        goUpdateBill(id){
+            this.$router.push({ name: 'UpdateBill',params:{idBill:id} })
+        },
+        deleteBill(id){
+
         }
     },
 }

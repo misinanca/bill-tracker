@@ -49,6 +49,7 @@ const router = new Router({
       path: '/update',
       name: 'UpdateBill',
       component: UpdateBill,
+      props: true,
       meta: { 
         requiresAuth: true
       }
