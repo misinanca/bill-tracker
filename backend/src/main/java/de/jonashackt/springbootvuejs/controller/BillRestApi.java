@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public interface BillRestApi {
 
+    @GetMapping("get/{id}")
+    ResponseEntity<?> findById(@PathVariable("id") Long id);
+
     @PostMapping("/updateBillStatus/{id}")
     ResponseEntity<Boolean> updateStatus(@PathVariable("id") Long id);
 

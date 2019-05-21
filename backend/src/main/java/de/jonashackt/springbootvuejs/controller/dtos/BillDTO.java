@@ -5,6 +5,8 @@ public class BillDTO {
     private String name;
     private String due;
     private Boolean status;
+    private String details;
+    private String creationDate;
 
     public BillDTO() { }
 
@@ -40,4 +42,19 @@ public class BillDTO {
         this.status = status;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
 }

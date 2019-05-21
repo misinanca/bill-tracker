@@ -7,5 +7,6 @@ import java.text.ParseException;
 
 public interface BillMapper {
     Bill toEntity(final BillDTO billDTO) throws ParseException;
+
     BillDTO toDto(Bill bill);
 }

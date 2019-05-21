@@ -12,6 +12,8 @@ public class Bill {
     private String name;
     private Date due;
     private Boolean status;
+    private String details;
+    private Date creationDate;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
@@ -47,6 +49,22 @@ public class Bill {
         this.status = status;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public User getUser() {
         return user;
     }
@@ -57,6 +75,6 @@ public class Bill {
 
     @Override
     public String toString() {
-        return "Bill{" + "id=" + id + ", name='" + name + '\'' + ", due=" + due + ", status='" + status + '\'' + ", userId=" + user + '}';
+        return "Bill{" + "id=" + id + ", name='" + name + '\'' + ", due=" + due + ", status=" + status + ", details='" + details + '\'' + ", creationDate=" + creationDate + ", user=" + user + '}';
     }
 }

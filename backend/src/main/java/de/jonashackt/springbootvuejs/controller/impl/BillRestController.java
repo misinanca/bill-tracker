@@ -21,6 +21,15 @@ public class BillRestController implements BillRestApi {
     }
 
     @Override
+    public ResponseEntity<?> findById(Long id) {
+        Bill bill = billService.findById(id);
+        if(bill == null) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(bill, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<Boolean> updateStatus(@PathVariable("id") Long id) {
         Long response = billService.updateBillStatus(id);
         if(response!=null)
