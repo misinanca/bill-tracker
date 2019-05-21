@@ -35,6 +35,12 @@ public class BillServiceImpl implements BillService {
 
 
     @Override
+    public Bill findById(Long id) {
+        return billRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find bill with ID: " + id));
+    }
+
+    @Override
     public Long updateBillStatus(Long id) {
         Bill bill = billRepository.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("Cannot find article with ID: " + id));
@@ -46,7 +52,11 @@ public class BillServiceImpl implements BillService {
     public List<BillDTO> filterBills(Boolean status) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
-        return billRepository.findAll().stream().filter(bill -> bill.getStatus().equals(status) && bill.getUser().getId().equals(userPrincipal.getId())).map(entity -> billMapper.toDto(entity)).collect(Collectors.toList());
+        return billRepository.findAll()
+                .stream()
+                .filter(bill -> bill.getStatus().equals(status) && bill.getUser().getId().equals(userPrincipal.getId()))
+                .map(billMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
