@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h2 class="text-white mb-5">Add new bill</h2>
+    <h2 class="text-white mb-5">Update bill</h2>
      <b-alert 
       variant="danger"
       dismissible
@@ -10,7 +10,7 @@
     >
       {{ error }}
     </b-alert>
-    <form @submit.prevent="save">
+    <form @submit.prevent="update">
      <div class="form-col">
         <div class="form-group col-md-12">
           <input
@@ -50,16 +50,14 @@
           </input>
         </div>
      </div>
-     <button class="btn btn-primary mx-auto">Save</button>
+     <button class="btn btn-primary mx-auto">Update</button>
     </form>
   </div>
 </template>
-
 <script>
 import AXIOS from '@/http-common';
-
-export default {
-    name: 'save',
+export default{
+    name: 'update',
     data () {
         return {
         bill: {
@@ -77,8 +75,8 @@ export default {
     },
   },
   methods: {
-    save(){
-      this.$validator.validate()
+     update(){
+         this.$validator.validate()
         .then((valid) => {
           if (valid) {
             return this.callApi();
@@ -86,10 +84,10 @@ export default {
         }).catch(() => {
           this.showAlert = true;
           this.$store.commit('setError', 'Please complete all the fields !');
-        }); 
-    },
-    callApi() {
-      AXIOS.post('/saveBill', this.bill)
+        });
+     },
+     callApi() {
+      AXIOS.post('/updateBill', this.bill)
         .then((response) => {
           this.$store.commit('setError', null);
           this.showAlert = false;
@@ -99,7 +97,7 @@ export default {
           this.showAlert = true;
           this.$store.commit('setError', 'Something went wrong. Please try again.');
         })
-    },
+    }, 
   },
 }
 </script>

@@ -18,7 +18,7 @@
                         {{ option.text }}
                     </option>
                 </select>
-                <div><button class="btn btn-primary mb-2">Add new bill</button></div>
+                <div><button class="btn btn-primary mb-2" @click="goAddNewBill">Add new bill</button></div>
             </div>
         </div>
         <b-alert 
@@ -142,6 +142,9 @@ export default {
                     });
             }
         },
+        goAddNewBill(){
+            this.$router.push({ name: 'SaveBill' })
+        }
     },
 }
 </script>
