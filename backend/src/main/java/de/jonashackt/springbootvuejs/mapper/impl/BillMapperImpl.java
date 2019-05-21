@@ -17,7 +17,7 @@ public class BillMapperImpl implements BillMapper {
         if (billDTO != null) {
             // convert the string date into a Date() object
             //pattern of string date should be "dd-MM-yy"
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yy");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = formatter.parse(billDTO.getDue());
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 
