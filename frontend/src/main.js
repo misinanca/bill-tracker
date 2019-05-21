@@ -6,12 +6,19 @@ import router from './router/index';
 import store from './store/index';
 import BootstrapVue from 'bootstrap-vue';
 import VeeValidate from 'vee-validate';
+import 'vue-awesome/icons';
+import Icon from 'vue-awesome/components/Icon';
+
+Vue.component('v-icon', Icon)
 
 Vue.config.productionTip = false
 
 // Bootstrap
 Vue.use(BootstrapVue)
-Vue.use(VeeValidate);
+Vue.use(VeeValidate, {
+    inject: true,
+    fieldsBagName: 'veeFields'
+  });
 
 new Vue({
     router,
