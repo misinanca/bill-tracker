@@ -11,4 +11,7 @@ export const getters = {
     loading(state) {
       return state.loading;
     },
+    billsList(state) {
+      return state.billsList;
+    }
 }

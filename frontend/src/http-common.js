@@ -7,7 +7,6 @@ const AXIOS = axios.create({
 
 AXIOS.interceptors.request.use(
   (config) => {
-    debugger;
     let token = Cookies.get('AUTH');
 
     if (token) {
