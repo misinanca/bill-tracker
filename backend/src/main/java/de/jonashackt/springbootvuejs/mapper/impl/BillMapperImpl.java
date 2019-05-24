@@ -10,8 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static jdk.javadoc.internal.doclets.formats.html.markup.HtmlTag.HEAD;
-
 @Component
 public class BillMapperImpl implements BillMapper {
     @Override
@@ -20,7 +18,7 @@ public class BillMapperImpl implements BillMapper {
             // convert the string date into a Date() object
             //pattern of string date should be "dd-MM-yy"
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             //convert the due date
             Date date = formatter.parse(billDTO.getDue());
             java.sql.Date dueDate = new java.sql.Date(date.getTime());

@@ -13,4 +13,8 @@ public interface BillService {
     Long update(BillDTO billDTO);
 
     List<BillDTO> filterBills(Boolean status);
+
+    List<BillDTO> findAll();
+
+    Boolean delete(Long id);
 }
