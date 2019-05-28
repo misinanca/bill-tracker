@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public interface BillRestApi {
 
+    @GetMapping("/get/{id}")
+    ResponseEntity<?> findById(@PathVariable("id") Long id);
+
     @PostMapping("/updateBillStatus/{id}")
     ResponseEntity<Boolean> updateStatus(@PathVariable("id") Long id);
 
@@ -18,5 +21,11 @@ public interface BillRestApi {
 
     @GetMapping("/getFilteredBills")
     ResponseEntity<?> filterBills(@RequestParam(value="status") Boolean status);
+
+    @GetMapping("/getAll")
+    ResponseEntity<?> findAll();
+
+    @GetMapping("/delete/{id}")
+    ResponseEntity<?> delete(@PathVariable("id") Long id);
 
 }

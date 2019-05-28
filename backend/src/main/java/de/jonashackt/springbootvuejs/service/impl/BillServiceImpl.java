@@ -17,6 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +36,12 @@ public class BillServiceImpl implements BillService {
 
 
     @Override
+    public Bill findById(Long id) {
+        return billRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cannot find bill with ID: " + id));
+    }
+
+    @Override
     public Long updateBillStatus(Long id) {
         Bill bill = billRepository.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("Cannot find article with ID: " + id));
@@ -46,7 +53,33 @@ public class BillServiceImpl implements BillService {
     public List<BillDTO> filterBills(Boolean status) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
-        return billRepository.findAll().stream().filter(bill -> bill.getStatus().equals(status) && bill.getUser().getId().equals(userPrincipal.getId())).map(entity -> billMapper.toDto(entity)).collect(Collectors.toList());
+        return billRepository.findAll()
+                .stream()
+                .filter(bill -> bill.getStatus().equals(status) && bill.getUser().getId().equals(userPrincipal.getId()))
+                .map(billMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BillDTO> findAll() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
+        return billRepository.findAll()
+                .stream()
+                .filter(bill -> bill.getUser().getId().equals(userPrincipal.getId()))
+                .map(billMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean delete(Long id) {
+        Optional<Bill> optionalBill;
+        optionalBill = billRepository.findById(id);
+
+        if (optionalBill.isPresent()) {
+            billRepository.deleteById(optionalBill.get().getId());
+            return true;
+        } else return false;
     }
 
     @Override
