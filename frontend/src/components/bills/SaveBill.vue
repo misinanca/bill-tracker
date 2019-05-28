@@ -35,6 +35,17 @@
           <span class="error-message">{{ errors.first('billDate') }}</span>
         </div>
         <div class="form-group col-md-12">
+          <input
+            v-model="bill.price"
+            v-validate="{required: true}"
+            type="number"
+            class="form-control"
+            name="billPrice"
+            placeholder="Price"
+          />
+          <span class="error-message">{{ errors.first('billPrice') }}</span>
+        </div>
+        <div class="form-group col-md-12">
           <textarea
             v-model="bill.details"
             type="text"
@@ -67,6 +78,7 @@ export default {
           due: null,
           status: false,
           details:'',
+          price:null,
           creationDate:new Date().toISOString()
         },
         showAlert: false
