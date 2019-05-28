@@ -1,0 +1,97 @@
+<template>
+    <div class="container-fluid mt-4">
+        <b-alert 
+            variant="danger"
+            dismissible
+            fade
+            :show="showAlert"
+            @dismissed="showAlert=false"
+        >
+            {{ error }}
+        </b-alert>
+        <div>
+            <h1 class="text-white mb-2">Visual graph</h1>
+        </div>
+        <div>
+            <p class="text-white">Choose some dates:</p>
+            <div class="form-center form-row">
+                <div class="form-group mr-3">
+                    <datepicker
+                        input-class="form-control"
+                        placeholder="Select Start Date"
+                        v-model="dates.startDate"
+                        :disabledDates="disabledDates"
+                        :use-utc="true"
+                    />
+                </div>
+                <div class="form-group mr-3">
+                    <datepicker
+                        input-class="form-control"
+                        placeholder="Select End Date"
+                        v-model="dates.endDate"
+                        :disabledDates="disabledDates"
+                        :use-utc="true"
+                    />
+                </div>
+                <button class="btn btn-primary" @click="getByRange()">Submit</button>
+            </div>
+        </div>
+        <div class="chart">
+            <line-chart class="chart" v-if="loaded" :chart-data="records" :chart-labels="labels" />
+        </div>
+    </div>
+</template>
+
+<script>
+import Datepicker from 'vuejs-datepicker';
+import LineChart from '@/components/LineChart';
+import AXIOS from '@/http-common';
+
+export default {
+  components: {
+    Datepicker,
+    LineChart,
+  },
+  data() {
+    return {
+      dates: {
+        startDate: null,
+        endDate: null,
+      },
+      showAlert: false,
+      loaded: false,
+      records: [],
+      labels: [],
+      disabledDates: {
+        from: new Date(), // Disable all dates after today
+      },
+    };
+  },
+  computed: {
+    error() {
+        return this.$store.getters.error;
+    },
+  },
+  methods: {
+    getByRange() {
+      this.loaded = false;
+
+      AXIOS.get(`/getFilteredBillsByDate?startDate=${this.dates.startDate}&endDate=${this.dates.endDate}`)
+        .then((response) => {
+            this.records = response.data.map(record => record.price);
+            this.labels = response.data.map(record => (new Date(record.creationDate)).toDateString());
+            this.loaded = true;
+
+            this.$store.commit('setError', null);
+            this.showAlert = false;
+
+            console.log(response.data);
+        })
+        .catch((error) => {
+            this.showAlert = true;
+            this.$store.commit('setError', 'Something went wrong. Please try again.');
+        });
+    },
+  },
+};
+</script>

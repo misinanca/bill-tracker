@@ -6,6 +6,9 @@
         <div v-if="isAuthenticated">
           <router-link class="nav-link js-scroll-trigger" to="/bills">List</router-link>
         </div>
+        <div v-if="isAuthenticated">
+          <router-link class="nav-link js-scroll-trigger" to="/charts">Graph</router-link>
+        </div>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ml-auto">
             <li v-if="isAuthenticated" class="nav-item mr-4">

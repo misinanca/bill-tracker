@@ -22,6 +22,9 @@ public interface BillRestApi {
     @GetMapping("/getFilteredBills")
     ResponseEntity<?> filterBills(@RequestParam(value="status") Boolean status);
 
+    @GetMapping("/getFilteredBillsByDate")
+    ResponseEntity<?> filterBillsByDate(@RequestParam(value="startDate") String startDate, @RequestParam(value="endDate") String endDate);
+
     @GetMapping("/getAll")
     ResponseEntity<?> findAll();
 

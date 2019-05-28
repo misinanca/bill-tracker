@@ -78,6 +78,11 @@ export default {
                     sortable: true,
                 },
                 {
+                    key: 'price',
+                    label: 'Price',
+                    sortable: true,
+                },
+                {
                     key: 'due',
                     label: 'Due date',
                     sortable: true,

@@ -14,6 +14,8 @@ public interface BillService {
 
     List<BillDTO> filterBills(Boolean status);
 
+    List<BillDTO> filterBills(String startDate, String endDate);
+
     List<BillDTO> findAll();
 
     Boolean delete(Long id);

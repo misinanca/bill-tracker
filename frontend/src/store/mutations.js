@@ -17,6 +17,7 @@ export const mutations = {
 
       return {
         id: el.id,
+        price: el.price,
         name: el.name,
         due: el.due,
         status: status,
