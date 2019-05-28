@@ -20,6 +20,8 @@ export const mutations = {
         name: el.name,
         due: el.due,
         status: status,
+        creationDate: el.creationDate,
+        details: el.details,
       };
     })
     state.billsList = bills;

@@ -17,7 +17,7 @@ public interface BillRestApi {
     ResponseEntity<Boolean> update(BillDTO billDTO);
 
     @PostMapping("/saveBill")
-    ResponseEntity<Boolean> save( BillDTO billDTO);
+    ResponseEntity<Boolean> save(BillDTO billDTO);
 
     @GetMapping("/getFilteredBills")
     ResponseEntity<?> filterBills(@RequestParam(value="status") Boolean status);

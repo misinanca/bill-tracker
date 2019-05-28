@@ -93,6 +93,11 @@ export default {
                     sortable: true,
                 },
                 {
+                    key: 'creationDate',
+                    label: 'Date saved',
+                    sortable: true,
+                },
+                {
                     key: 'commands',
                     label: '',
                 },
@@ -116,8 +121,7 @@ export default {
             this.toggleBusy();
 
             if (this.selected === 'all') {
-                // TODO: replace api url with all bills list
-                AXIOS.get('/getFilteredBills?status=true')
+                AXIOS.get('/getAll')
                     .then((response) => {
                         this.toggleBusy();
                         this.$store.commit('setBillsList', response.data);
