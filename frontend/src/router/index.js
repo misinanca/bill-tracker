@@ -8,6 +8,7 @@ import Register from '@/components/Register';
 import BillsList from '@/components/bills/BillsList';
 import SaveBill from '@/components/bills/SaveBill';
 import UpdateBill from '@/components/bills/UpdateBill'
+import Charts from '@/components/bills/Charts';
 
 Vue.use(Router);
 
@@ -33,6 +34,14 @@ const router = new Router({
       path: '/bills',
       name: 'BillsList',
       component: BillsList,
+      meta: { 
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/charts',
+      name: 'Charts',
+      component: Charts,
       meta: { 
         requiresAuth: true
       }
