@@ -75,7 +75,18 @@ export default{
       return this.$store.getters.error;
     },
   },
+  mounted() {
+    this.getBillById();
+  },
   methods: {
+    getBillById(){
+      AXIOS.get('/findById', {id:this.idBill})
+        .then((response) => {
+          console.log(response.data);
+          this.bill = response.data;
+        })
+
+    },
      update(){
          this.$validator.validate()
         .then((valid) => {

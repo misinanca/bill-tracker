@@ -66,7 +66,8 @@ export default {
           name: '',
           due: null,
           status: false,
-          details:''
+          details:'',
+          creationDate:new Date().toISOString()
         },
         showAlert: false
     };
