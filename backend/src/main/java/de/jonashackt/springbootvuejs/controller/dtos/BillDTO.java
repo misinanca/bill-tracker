@@ -2,6 +2,7 @@ package de.jonashackt.springbootvuejs.controller.dtos;
 
 public class BillDTO {
     private Long id;
+    private Double price;
     private String name;
     private String due;
     private Boolean status;
@@ -16,6 +17,14 @@ public class BillDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getName() {

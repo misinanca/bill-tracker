@@ -29,6 +29,7 @@ public class BillMapperImpl implements BillMapper {
 
             Bill bill = new Bill();
             bill.setId(billDTO.getId());
+            bill.setPrice(billDTO.getPrice());
             bill.setName(billDTO.getName());
             bill.setDue(dueDate);
             bill.setStatus(billDTO.getStatus());
@@ -51,6 +52,7 @@ public class BillMapperImpl implements BillMapper {
 
             BillDTO billDTO = new BillDTO();
             billDTO.setId(bill.getId());
+            billDTO.setPrice(bill.getPrice());
             billDTO.setName(bill.getName());
             billDTO.setDue(dueDate);
             billDTO.setStatus(bill.getStatus());

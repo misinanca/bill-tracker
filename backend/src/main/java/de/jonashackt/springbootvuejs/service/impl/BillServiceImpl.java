@@ -14,8 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +61,38 @@ public class BillServiceImpl implements BillService {
                 .filter(bill -> bill.getStatus().equals(status) && bill.getUser().getId().equals(userPrincipal.getId()))
                 .map(billMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BillDTO> filterBills(String startDate, String endDate) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+        //convert dates
+        java.sql.Date start;
+        java.sql.Date end;
+        try {
+            start = new java.sql.Date(formatter.parse(startDate).getTime());
+            end = new java.sql.Date(formatter.parse(endDate).getTime());
+
+            return billRepository.findAll()
+                    .stream()
+                    .filter(bill ->
+                            bill.getCreationDate().compareTo(start) >= 0
+                                    && bill.getCreationDate().compareTo(end) <= 0
+                                    && bill.getUser().getId().equals(userPrincipal.getId()))
+                    .map(billMapper::toDto)
+                    .collect(Collectors.toList());
+        } catch (ParseException e) {
+            return billRepository.findAll()
+                    .stream()
+                    .map(billMapper::toDto)
+                    .collect(Collectors.toList());
+        }
+
+
     }
 
     @Override
