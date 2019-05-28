@@ -80,7 +80,8 @@ export default{
   },
   methods: {
     getBillById(){
-      AXIOS.get('/findById', {id:this.idBill})
+      console.log("****");
+      AXIOS.get(`/get/${this.idBill}`)
         .then((response) => {
           console.log(response.data);
           this.bill = response.data;
