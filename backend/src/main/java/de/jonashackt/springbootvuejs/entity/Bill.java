@@ -15,7 +15,7 @@ public class Bill {
     private Boolean status;
     private String details;
     private Date creationDate;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private User user;
 
     public Long getId() {
