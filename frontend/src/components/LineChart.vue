@@ -44,12 +44,11 @@
         labels: this.chartLabels,
         datasets: [
           {
-            label: 'bills',
-            borderColor: '#249EBF',
-            pointBackgroundColor: 'white',
-            borderWidth: 1,
-            pointBorderColor: '#249EBF',
-            backgroundColor: '#FFFFF',
+            label: 'Total',
+            pointBackgroundColor: '#ffffff',
+            borderWidth: 0,
+            pointBorderColor: '#222626',
+            backgroundColor: '#ffffff',
             data: this.chartData,
           },
         ],

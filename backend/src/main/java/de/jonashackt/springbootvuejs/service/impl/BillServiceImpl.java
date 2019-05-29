@@ -17,10 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,19 +74,21 @@ public class BillServiceImpl implements BillService {
             start = new java.sql.Date(formatter.parse(startDate).getTime());
             end = new java.sql.Date(formatter.parse(endDate).getTime());
 
-            return billRepository.findAll()
+            List<BillDTO> list =  billRepository.findAll()
                     .stream()
                     .filter(bill ->
-                            bill.getCreationDate().compareTo(start) >= 0
-                                    && bill.getCreationDate().compareTo(end) <= 0
+                            bill.getDue().compareTo(start) >= 0
+                                    && bill.getDue().compareTo(end) <= 0
                                     && bill.getUser().getId().equals(userPrincipal.getId()))
                     .map(billMapper::toDto)
                     .collect(Collectors.toList());
+
+            Map<java.sql.Date,Double> map = new HashMap<java.sql.Date,Double>();
+            for (BillDTO bill : list)
+                map.put(bill.getDue(), bill.getPrice());
+                
         } catch (ParseException e) {
-            return billRepository.findAll()
-                    .stream()
-                    .map(billMapper::toDto)
-                    .collect(Collectors.toList());
+            return new ArrayList<>();
         }
 
 

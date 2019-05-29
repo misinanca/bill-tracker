@@ -58,23 +58,15 @@ public class BillRestController implements BillRestApi {
 
     @Override
     public ResponseEntity<?> filterBills(Boolean status) {
-
         List<BillDTO> bills = billService.filterBills(status);
 
-        if(bills.isEmpty()) {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> filterBillsByDate(String startDate, String endDate) {
-
         List<BillDTO> bills = billService.filterBills(startDate, endDate);
 
-        if(bills.isEmpty()) {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
@@ -82,9 +74,6 @@ public class BillRestController implements BillRestApi {
     public ResponseEntity<?> findAll() {
         List<BillDTO> bills = billService.findAll();
 
-        if(bills.isEmpty()) {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
