@@ -1,5 +1,6 @@
 package de.jonashackt.springbootvuejs.service;
 
+import de.jonashackt.springbootvuejs.controller.dtos.BillChartDto;
 import de.jonashackt.springbootvuejs.controller.dtos.BillDTO;
 import de.jonashackt.springbootvuejs.entity.Bill;
 
@@ -16,7 +17,7 @@ public interface BillService {
 
     List<BillDTO> filterBills(Boolean status);
 
-    Map<Date, Double> filterBills(String startDate, String endDate);
+    List<BillChartDto> filterBills(String startDate, String endDate);
 
     List<BillDTO> findAll();
 

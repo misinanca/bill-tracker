@@ -1,5 +1,6 @@
 package de.jonashackt.springbootvuejs.service.impl;
 
+import de.jonashackt.springbootvuejs.controller.dtos.BillChartDto;
 import de.jonashackt.springbootvuejs.controller.dtos.BillDTO;
 import de.jonashackt.springbootvuejs.entity.Bill;
 import de.jonashackt.springbootvuejs.entity.CurrentUser;
@@ -62,12 +63,12 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Map<Date, Double> filterBills(String startDate, String endDate) {
+    public List<BillChartDto> filterBills(String startDate, String endDate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Map<java.sql.Date,Double> map = new HashMap<>();
+        List<BillChartDto> listDto = new ArrayList<>();
 
         //convert dates
         java.sql.Date start;
@@ -84,13 +85,19 @@ public class BillServiceImpl implements BillService {
                                     && bill.getUser().getId().equals(userPrincipal.getId()))
                     .collect(Collectors.toList());
 
-            map = list.stream().collect(Collectors.groupingBy(Bill::getDue, TreeMap::new, Collectors.summingDouble(Bill::getPrice)));
-            System.out.println(map);
+            Map<java.sql.Date,Double> map = list.stream().collect(Collectors.groupingBy(Bill::getDue, TreeMap::new, Collectors.summingDouble(Bill::getPrice)));
+
+            listDto = map.entrySet()
+                .stream()
+                .map(e -> new BillChartDto(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
+
+            System.out.println(listDto);
                 
         } catch (ParseException e) {
-           return map;
+           return listDto;
         }
-        return  map;
+        return  listDto;
     }
 
     @Override

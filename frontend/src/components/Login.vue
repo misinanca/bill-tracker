@@ -14,7 +14,7 @@
         <div class="form-col">
           <div class="form-group mx-auto col-md-6">
             <input
-              v-validate="'required|min:6'"
+              v-validate.disable="'required|min:6'"
               v-model="user.username"
               type="text"
               class="form-control"
@@ -26,7 +26,7 @@
           </div>
           <div class="form-group mx-auto col-md-6">
             <input
-              v-validate="'required|min:6'"          
+              v-validate.disable="'required|min:6'"          
               v-model="user.password"
               type="password"
               class="form-control"

@@ -10,7 +10,7 @@
             {{ error }}
         </b-alert>
         <div>
-            <h1 class="text-white mb-2">Visual graph</h1>
+            <h1 class="text-white mb-2">Spendings graph</h1>
         </div>
         <div>
             <p class="text-white mb-0">Choose some dates:</p>
@@ -20,7 +20,6 @@
                         input-class="form-control"
                         placeholder="Select Start Date"
                         v-model="dates.startDate"
-                        :disabledDates="disabledDates"
                         :use-utc="true"
                     />
                 </div>
@@ -29,7 +28,6 @@
                         input-class="form-control"
                         placeholder="Select End Date"
                         v-model="dates.endDate"
-                        :disabledDates="disabledDates"
                         :use-utc="true"
                     />
                 </div>
@@ -63,9 +61,6 @@ export default {
       loaded: false,
       records: [],
       labels: [],
-      disabledDates: {
-        from: new Date(), // Disable all dates after today
-      },
     };
   },
   computed: {
@@ -89,8 +84,8 @@ export default {
 
       AXIOS.get(`/getFilteredBillsByDate?startDate=${startDate}&endDate=${endDate}`)
         .then((response) => {
-            this.records = response.data.map(record => record.price);
-            this.labels = response.data.map(record => (new Date(record.creationDate)).toDateString());
+            this.records = response.data.map(record => record.prices);
+            this.labels = response.data.map(record => (new Date(record.date)).toDateString());
             this.loaded = true;
 
             this.$store.commit('setError', null);
