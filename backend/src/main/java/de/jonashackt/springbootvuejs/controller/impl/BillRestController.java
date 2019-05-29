@@ -1,6 +1,7 @@
 package de.jonashackt.springbootvuejs.controller.impl;
 
 import de.jonashackt.springbootvuejs.controller.BillRestApi;
+import de.jonashackt.springbootvuejs.controller.dtos.BillChartDto;
 import de.jonashackt.springbootvuejs.controller.dtos.BillDTO;
 import de.jonashackt.springbootvuejs.entity.Bill;
 import de.jonashackt.springbootvuejs.service.BillService;
@@ -68,7 +69,7 @@ public class BillRestController implements BillRestApi {
 
     @Override
     public ResponseEntity<?> filterBillsByDate(String startDate, String endDate) {
-        Map<Date, Double> bills = billService.filterBills(startDate, endDate);
+        List<BillChartDto> bills = billService.filterBills(startDate, endDate);
 
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
