@@ -3,7 +3,9 @@ package de.jonashackt.springbootvuejs.service;
 import de.jonashackt.springbootvuejs.controller.dtos.BillDTO;
 import de.jonashackt.springbootvuejs.entity.Bill;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface BillService {
     Bill findById(Long id);
@@ -14,7 +16,7 @@ public interface BillService {
 
     List<BillDTO> filterBills(Boolean status);
 
-    List<BillDTO> filterBills(String startDate, String endDate);
+    Map<Date, Double> filterBills(String startDate, String endDate);
 
     List<BillDTO> findAll();
 

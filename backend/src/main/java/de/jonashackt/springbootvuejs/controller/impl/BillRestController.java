@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class BillRestController implements BillRestApi {
@@ -58,23 +61,15 @@ public class BillRestController implements BillRestApi {
 
     @Override
     public ResponseEntity<?> filterBills(Boolean status) {
-
         List<BillDTO> bills = billService.filterBills(status);
 
-        if(bills.isEmpty()) {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> filterBillsByDate(String startDate, String endDate) {
+        Map<Date, Double> bills = billService.filterBills(startDate, endDate);
 
-        List<BillDTO> bills = billService.filterBills(startDate, endDate);
-
-        if(bills.isEmpty()) {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
@@ -82,9 +77,6 @@ public class BillRestController implements BillRestApi {
     public ResponseEntity<?> findAll() {
         List<BillDTO> bills = billService.findAll();
 
-        if(bills.isEmpty()) {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 

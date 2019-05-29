@@ -14,13 +14,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,11 +62,12 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDTO> filterBills(String startDate, String endDate) {
+    public Map<Date, Double> filterBills(String startDate, String endDate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CurrentUser userPrincipal = (CurrentUser) authentication.getPrincipal();
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Map<java.sql.Date,Double> map = new HashMap<>();
 
         //convert dates
         java.sql.Date start;
@@ -77,22 +76,21 @@ public class BillServiceImpl implements BillService {
             start = new java.sql.Date(formatter.parse(startDate).getTime());
             end = new java.sql.Date(formatter.parse(endDate).getTime());
 
-            return billRepository.findAll()
+            List<Bill> list =  billRepository.findAll()
                     .stream()
                     .filter(bill ->
-                            bill.getCreationDate().compareTo(start) >= 0
-                                    && bill.getCreationDate().compareTo(end) <= 0
+                            bill.getDue().compareTo(start) >= 0
+                                    && bill.getDue().compareTo(end) <= 0
                                     && bill.getUser().getId().equals(userPrincipal.getId()))
-                    .map(billMapper::toDto)
                     .collect(Collectors.toList());
+
+            map = list.stream().collect(Collectors.groupingBy(Bill::getDue, TreeMap::new, Collectors.summingDouble(Bill::getPrice)));
+            System.out.println(map);
+                
         } catch (ParseException e) {
-            return billRepository.findAll()
-                    .stream()
-                    .map(billMapper::toDto)
-                    .collect(Collectors.toList());
+           return map;
         }
-
-
+        return  map;
     }
 
     @Override

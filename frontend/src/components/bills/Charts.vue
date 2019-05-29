@@ -13,7 +13,7 @@
             <h1 class="text-white mb-2">Visual graph</h1>
         </div>
         <div>
-            <p class="text-white">Choose some dates:</p>
+            <p class="text-white mb-0">Choose some dates:</p>
             <div class="form-center form-row">
                 <div class="form-group mr-3">
                     <datepicker
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Datepicker from 'vuejs-datepicker';
 import LineChart from '@/components/LineChart';
 import AXIOS from '@/http-common';
@@ -73,10 +74,20 @@ export default {
     },
   },
   methods: {
+    formatDate(value) {
+      if (value) {
+        return moment(String(value)).format('YYYY-MM-DD');
+      }
+
+      return '';
+    },
     getByRange() {
       this.loaded = false;
 
-      AXIOS.get(`/getFilteredBillsByDate?startDate=${this.dates.startDate}&endDate=${this.dates.endDate}`)
+      const startDate = this.formatDate(this.dates.startDate);
+      const endDate = this.formatDate(this.dates.endDate);
+
+      AXIOS.get(`/getFilteredBillsByDate?startDate=${startDate}&endDate=${endDate}`)
         .then((response) => {
             this.records = response.data.map(record => record.price);
             this.labels = response.data.map(record => (new Date(record.creationDate)).toDateString());
